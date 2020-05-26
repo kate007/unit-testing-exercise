@@ -1,0 +1,59 @@
+<div>
+  <form #form="ngForm" class="myForm">
+     <!-- Name -->
+     <div class="form-group">
+      <label for="firstName"> First Name*</label>
+      <input type="text" class="firstName"
+     name="firstName" [(ngModel)]="user.firstName" required>
+
+    </div>
+
+
+    <div class="form-group">
+      <label for="lastName"> Last Name</label>
+      <input type="text" class="lastName"
+     name="lastName" [(ngModel)]="user.lastName">
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone*</label>
+      <input type="text" class="phone"
+    name="phone"  [(ngModel)]="user.phone" required appPhoneValidator #phone="ngModel" >
+     <span   *ngIf="phone.errors?.invalidPhoneNumber"> Phone is required.{{phone.errors?.invalidPhoneNumber}} </span>
+    </div>
+
+
+
+    <div class="form-group">
+      <label for="email">Email*</label>
+      <input type="email"  class="email" name="email" [(ngModel)]="user.email" required appEmailValidator #email="ngModel">
+     <span *ngIf="email.errors?.invalidEmail"> Email is required. {{email.errors?.invalidEmail}} </span>
+
+    </div>
+
+      <button type="submit" class="save" (click)="onSubmit(form)">Save</button>
+      <button type="button" class="cancel" (click)="cancel(form)">Cancel</button>
+  </form>
+
+
+</div>
+
+<div>
+
+<table *ngIf="users.length > 0">
+  <tr>
+    <th>Full Name</th>
+    <th>Phone</th>
+    <th>Email</th>
+  <tr>
+
+
+  <tr *ngFor="let user of users" class="user-list">
+    <td class="col"> {{ user.firstName}} {{ user.lastName}}</td>
+    <td class="col">{{ user.phone}}</td>
+    <td class="col"> {{ user.email}}</td>
+  </tr>
+
+</table>
+
+</div>
